@@ -14,13 +14,12 @@ public class Main {
         List<Room> rooms = new ArrayList<>();
         List<Curriculum> curricula = new ArrayList<>();
 
-        courses = reader.getCourses();
+        //test
+        /*courses = reader.getCourses();
         rooms = reader.getRooms();
         curricula = reader.getCurricula();
-
-
-        //for(Course i: courses) i.printCourse();
-        //for(Room i : rooms) i.printRoom();
+        for(Course i: courses) i.printCourse();
+        for(Room i : rooms) i.printRoom();*/
     }
 
 }

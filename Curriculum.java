@@ -23,4 +23,11 @@ public class Curriculum {
 
         }System.out.println();
     }
+
+    public boolean isInCourses(Course course){
+        for(Course i : courses){
+            if(i.getName().equals(course.getName())) return true;
+        }
+        return false;
+    }
 }

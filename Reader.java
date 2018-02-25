@@ -6,15 +6,16 @@ public class Reader {
     private List<Course> courses = new ArrayList<>();
     private List<Room> rooms = new ArrayList<>();
     private List<Curriculum> curricula = new ArrayList<>();
+    List<Integer> generalInformation = new ArrayList<>();
 
-    public void read(String [ ] args) throws FileNotFoundException {
+    public void read(String [ ] args, String pathString) throws FileNotFoundException {
         File file;
-        file = new File("inputs/dataset_0.txt");
+        file = new File(pathString);
 
         BufferedReader br = null;
 
         String line;
-        List<Integer> generalInformation = new ArrayList<>();
+
 
         try{
             br = new BufferedReader(new FileReader(file));
@@ -78,5 +79,13 @@ public class Reader {
 
     public List<Room> getRooms() {
         return rooms;
+    }
+
+    public int getNumberOfDays() {
+        return generalInformation.get(2);
+    }
+
+    public int getNumberOfPeriodsPerDay() {
+        return generalInformation.get(3);
     }
 }

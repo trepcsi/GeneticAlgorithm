@@ -33,9 +33,10 @@ public class Course {
         return numberOfStudents;
     }
 
-    public int getMinimumDays(int minimumDays) {
-        return minimumDays;
+    public int getNumberOfClasses() {
+        return numberOfClasses;
     }
+
 
     public void printCourse(){
         System.out.print(name+" "+teacher+" "+numberOfClasses+" "+minimumDays+" "+numberOfStudents);

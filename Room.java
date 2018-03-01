@@ -29,8 +29,11 @@ public class Room {
         return efficiency;
     }
 
-    public void addClassToRoom(){
-        //TODO
+    public void setName(String newName){
+        this.name = newName;
+    }
+    public void setCapacity(int newC){
+        this.capacity = newC;
     }
 
     public void printRoom(){

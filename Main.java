@@ -1,5 +1,6 @@
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class Main {
@@ -21,12 +22,8 @@ public class Main {
         int numberOfPeriodsPerDay = reader.getNumberOfPeriodsPerDay();
         Algorithm GA = new Algorithm(numberOfDays,numberOfPeriodsPerDay,rooms,courses,curricula);
         GA.run();
-        //test
-        /*courses = reader.getCourses();
-        rooms = reader.getRooms();
-        curricula = reader.getCurricula();
-        for(Course i: courses) i.printCourse();
-        for(Room i : rooms) i.printRoom();*/
+
+
     }
 
 }

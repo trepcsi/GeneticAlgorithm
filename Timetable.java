@@ -86,11 +86,11 @@ public class Timetable {
         calculateRoomCapacityFaults();
         calculateMinimumWorkingDaysFaults();
         calculateCurriculumCompactnessFaults();
-        calculateRoomStabiltyFaults();
+        calculateRoomStabilityFaults();
     }
 
-    private void calculateRoomStabiltyFaults() {
-        //TODO
+    private void calculateRoomStabilityFaults() {
+
     }
 
     private void calculateCurriculumCompactnessFaults() {

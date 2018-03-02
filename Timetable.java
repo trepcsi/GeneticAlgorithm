@@ -69,8 +69,14 @@ public class Timetable {
 
             }
         }
+        scheduleRooms();
         calculateFitness();
         calculateViolations();
+    }
+    private void scheduleRooms(){
+        for(int i = 0; i < timetable.length; i++){
+            timetable[i].scheduleRooms();
+        }
     }
 
     private void calculateViolations() {
@@ -84,17 +90,54 @@ public class Timetable {
 
     private void calculateFitness(){
         calculateRoomCapacityFaults();
+        //int a = fitness;
+        //System.out.println("roomcapacity: "+a);
         calculateMinimumWorkingDaysFaults();
+        //int b = fitness;
+        //System.out.println("minworkingday: "+(b-a));
+
         calculateCurriculumCompactnessFaults();
+        //int c = fitness;
+        //System.out.println("lyukas: "+(c-b));
+
         calculateRoomStabilityFaults();
+        //System.out.println("roomstability: "+(fitness-c));
     }
 
     private void calculateRoomStabilityFaults() {
-
+        //TODO
     }
 
     private void calculateCurriculumCompactnessFaults() {
-        //TODO
+        for(Curriculum j : curricula) {
+            for (int i = 0; i < numberOfDays; i++) {
+                fitness += dailyNotAdjacentFault(i,j);
+            }
+        }
+    }
+    private int dailyNotAdjacentFault(int day, Curriculum curriculum){
+        int result ;
+        List<Boolean> whereClassesOfCurriculumAre = new ArrayList<>();
+        for(int i = day*numberOfPeriodsPerDay; i<(day+1)*numberOfPeriodsPerDay; i++){
+            if(timetable[i].IsClassOfCurriculumInThisPeriod(curriculum)){
+                whereClassesOfCurriculumAre.add(true);
+            }else{
+                whereClassesOfCurriculumAre.add(false);
+            }
+        }
+        result = countAdjacent(whereClassesOfCurriculumAre);
+        return result;
+    }
+    private int countAdjacent(List<Boolean> b){
+        int result = 0;
+        b.add(0,false);
+        b.add(false);
+        for(int i = 1; i<b.size()-1; i++){
+            if(!b.get(i - 1) && b.get(i) && !b.get(i+1)) {
+                result++;
+            }
+        }
+        return result;
     }
 
     private void calculateMinimumWorkingDaysFaults() {
@@ -123,11 +166,8 @@ public class Timetable {
     }
 
     private void calculateRoomCapacityFaults() {
-        for(int i = 0; i < timetable.length; i++){
-            for(int j = 0; j < timetable[i].classes.size(); j++){
-                if(rooms.get(j).getCapacity() - timetable[i].classes.get(j).getNumberOfStudents() < 0)
-                    fitness += timetable[i].classes.get(j).getNumberOfStudents() - rooms.get(j).getCapacity();
-            }
+        for (ClassesInSamePeriod i : timetable) {
+            fitness += i.countRoomCapacityFaults();
         }
     }
 
@@ -143,7 +183,7 @@ public class Timetable {
                 System.out.print(i+".   | ");
             }
             timetable[i].printClasses();
-            if((i+1)%6==0) System.out.println("------------------------------------------------------");
+            if((i+1)%6==0) System.out.println("-----------------------------------------------------------------------------------------------------");
         }
     }
 }

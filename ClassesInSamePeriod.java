@@ -1,7 +1,9 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class ClassesInSamePeriod {
+
     List<Course> classes;
     private int numberOfClasses;
 
@@ -19,6 +21,12 @@ public class ClassesInSamePeriod {
     public boolean IsCourseInThisPeriod(Course course){
         for(Course i : classes){
             if(i.getName().equals(course.getName())) return true;
+        }
+        return false;
+    }
+    public boolean IsClassOfCurriculumInThisPeriod(Curriculum curriculum){
+        for(Course i : curriculum.getCourses()){
+            if(IsCourseInThisPeriod(i)) return true;
         }
         return false;
     }
@@ -50,8 +58,19 @@ public class ClassesInSamePeriod {
     }
 
     public void printClasses(){
+        int j = 0;
         for(Course i : classes){
-            System.out.print(i.getName()+" | ");
+            if(rooms.get(j).getCapacity()-i.getNumberOfStudents()<-9 ) {
+                System.out.print(i.getName() + ", "+rooms.get(j).getName() +"(" + (rooms.get(j++).getCapacity() - i.getNumberOfStudents()) +")"+ " | ");
+            }else if(rooms.get(j).getCapacity()-i.getNumberOfStudents()<0 ) {
+                System.out.print(i.getName() + ", "+rooms.get(j).getName() +"(" + (rooms.get(j++).getCapacity() - i.getNumberOfStudents()) +")"+ "  | ");
+            }else if(rooms.get(j).getCapacity()-i.getNumberOfStudents()<10 ) {
+                System.out.print(i.getName() + ", "+rooms.get(j).getName() +"(" + (rooms.get(j++).getCapacity() - i.getNumberOfStudents()) +")"+ "   | ");
+            }else if(rooms.get(j).getCapacity()-i.getNumberOfStudents()<100)          {
+                System.out.print(i.getName() + ", "+rooms.get(j).getName() +"(" + (rooms.get(j++).getCapacity() - i.getNumberOfStudents()) +")"+ "  | ");
+            }else{
+                System.out.print(i.getName() + ", "+rooms.get(j).getName() +"(" + (rooms.get(j++).getCapacity() - i.getNumberOfStudents()) +")"+ " | ");
+            }
         }System.out.println();
     }
 
@@ -69,4 +88,34 @@ public class ClassesInSamePeriod {
         }
         return sum;
     }
+
+    public void scheduleRooms() {
+        RoomFinder rf = new RoomFinder(rooms,classes);
+        HashMap<Course, List<Room>> hm = rf.getRoomOrders();
+        List<Room> availableRooms = new ArrayList<>(rooms);
+        List<Room> orderedRooms = new ArrayList<>();
+        for(Course i : classes){
+            List<Room> bestOrder = hm.get(i);
+            for(Room j : bestOrder){
+                if(availableRooms.contains(j)){
+                    orderedRooms.add(j);
+                    availableRooms.remove(j);
+                }
+            }
+        }
+        rooms = orderedRooms;
+    }
+
+    public int countRoomCapacityFaults() {
+        int result = 0;
+        for(int i = 0; i<classes.size(); i++){
+            if(rooms.get(i).getCapacity()-classes.get(i).getNumberOfStudents()<0) {
+                result += (classes.get(i).getNumberOfStudents() - rooms.get(i).getCapacity());
+            }
+
+        }
+        return result;
+
+    }
+
 }

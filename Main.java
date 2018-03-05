@@ -9,13 +9,13 @@ public class Main {
 
 
     public static void main(String [ ] args) throws FileNotFoundException {
-        String pathString = new String("inputs/dataset_1.txt");
+        String pathString = "inputs/dataset_1.txt";
         Reader reader = new Reader();
         reader.read(args,pathString);
 
-        List<Course> courses = new ArrayList<>();
-        List<Room> rooms = new ArrayList<>();
-        List<Curriculum> curricula = new ArrayList<>();
+        List<Course> courses;
+        List<Room> rooms;
+        List<Curriculum> curricula;
         courses = reader.getCourses();
         rooms = reader.getRooms();
         curricula = reader.getCurricula();
@@ -30,6 +30,7 @@ public class Main {
         //program
         Algorithm GA = new Algorithm(numberOfDays,numberOfPeriodsPerDay,rooms,courses,curricula);
         GA.run();
+        GA.printBest();
 
 
     }

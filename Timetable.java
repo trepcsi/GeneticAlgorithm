@@ -1,3 +1,4 @@
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -194,7 +195,11 @@ public class Timetable {
                 System.out.print(i+".   | ");
             }
             timetable[i].printClasses();
-            if((i+1)%6==0) System.out.println("-----------------------------------------------------------------------------------------------------");
+            if((i+1)%numberOfPeriodsPerDay==0) System.out.println("-----------------------------------------------------------------------------------------------------");
         }
+    }
+
+    public void cross(Timetable timetable) {
+
     }
 }

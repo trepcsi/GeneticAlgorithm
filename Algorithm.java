@@ -7,7 +7,7 @@ import java.util.List;
 public class Algorithm {
 
     private final int NUMBER_OF_GENERATIONS = 10;
-    private final int POPULATION_SIZE = 30;
+    private final int POPULATION_SIZE = 20;
 
     private List<Timetable> generation;
     private List<Timetable> parents;

@@ -101,11 +101,22 @@ public class Timetable {
         //System.out.println("lyukas: "+(c-b));
 
         calculateRoomStabilityFaults();
-        //System.out.println("roomstability: "+(fitness-c));
+        //System.out.println("roomstability: "+(fitness-c)+"\n");
     }
 
     private void calculateRoomStabilityFaults() {
-        //TODO
+        Room bestRoom;
+        RoomFinder rf = new RoomFinder(rooms,courses);
+        for(Course i : courses){
+            bestRoom = rf.getRoomOrders().get(i).get(0);
+            for (ClassesInSamePeriod j : timetable){
+                if( j.IsCourseInThisPeriod(i)){
+                    if( !bestRoom.getName().equals(j.getRoomNameForClass(i))){
+                        fitness++;
+                    }
+                }
+            }
+        }
     }
 
     private void calculateCurriculumCompactnessFaults() {
@@ -126,7 +137,7 @@ public class Timetable {
             }
         }
         result = countAdjacent(whereClassesOfCurriculumAre);
-        return result;
+        return result*2;
     }
     private int countAdjacent(List<Boolean> b){
         int result = 0;

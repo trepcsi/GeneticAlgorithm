@@ -118,4 +118,13 @@ public class ClassesInSamePeriod {
 
     }
 
+    public String getRoomNameForClass(Course course){
+        for(int i = 0; i<classes.size(); i++){
+            if(classes.get(i).getName().equals(course.getName())){
+                return rooms.get(i).getName();
+            }
+        }
+        return null;
+    }
+
 }
